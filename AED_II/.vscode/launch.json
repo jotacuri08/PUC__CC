@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "u00_1",
+            "request": "launch",
+            "mainClass": "AED_EX_REV.u00_1",
+            "projectName": "AED_II_721c633b"
+        },
+        {
+            "type": "java",
+            "name": "u00_2",
+            "request": "launch",
+            "mainClass": "AED_EX_REV.u00_2",
+            "projectName": "AED_II_721c633b"
+        },
+        {
+            "type": "java",
+            "name": "ExemploURL",
+            "request": "launch",
+            "mainClass": "AED_GIT.fonte.ajuda.java.ExemploURL",
+            "projectName": "AED_II_721c633b"
+        },
+        {
+            "type": "java",
+            "name": "ExemploURL(1)",
+            "request": "launch",
+            "mainClass": "ExemploURL",
+            "projectName": "AED_II_721c633b"
+        }
+    ]
+}
