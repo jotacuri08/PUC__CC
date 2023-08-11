@@ -1,0 +1,1 @@
+Ele verifica se é uma vogal, se for, retorna true, se nao for retorna false.
