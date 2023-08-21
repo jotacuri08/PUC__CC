@@ -1,6 +1,6 @@
 package AED_EX_REV;
 
-public class u00_4 {
+public class u00b_4 {
     public static void maior_menor(int vet[]){
         int maior = vet[0];
         int menor = vet[0];

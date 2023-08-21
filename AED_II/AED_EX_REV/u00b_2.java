@@ -1,6 +1,6 @@
 package AED_EX_REV;
 
-public class u00_2 {
+public class u00b_2 {
     public static boolean int_array(int vet[], int num){
         int pos = vet.length/2;
         if(vet[pos] > num) {

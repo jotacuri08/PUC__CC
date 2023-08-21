@@ -1,6 +1,6 @@
 package AED_EX_REV;
 
-public class u00_6 {
+public class u00b_6 {
     public boolean isVogal(char c) {
         c = Character.toLowerCase(c);
         return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
