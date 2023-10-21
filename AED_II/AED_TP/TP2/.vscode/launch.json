@@ -2,21 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "java",
-      "name": "Questao_8",
-      "request": "launch",
-      "mainClass": "Questao_8",
-      "projectName": "TP1_6d759000"
-    },
-    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/joaol/OneDrive/Área de Trabalho/PUC__CC__2periodo/AED_II/AED_TP/TP1",
-      "program": "c:/Users/joaol/OneDrive/Área de Trabalho/PUC__CC__2periodo/AED_II/AED_TP/TP1/build/Debug/outDebug",
+      "cwd": "c:/Users/joaol/OneDrive/Área de Trabalho/PUC__CC__2periodo/AED_II/AED_TP/TP2/Q06",
+      "program": "c:/Users/joaol/OneDrive/Área de Trabalho/PUC__CC__2periodo/AED_II/AED_TP/TP2/Q06/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

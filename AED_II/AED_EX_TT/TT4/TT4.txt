@@ -1,0 +1,210 @@
+Exercicio Resolvido 1:
+    a) 1024
+    b) 10
+    c) 4.08
+    d) 5
+    e) 4
+
+Exercicio Resolvido 3:
+    Melhor caso: 3; 0(1); 
+    Pior caso: 5; 0(1);
+
+Exercicio Resolvido 4:
+    f(n) = 2n
+    0(1) 
+
+Exercicio Resolvido 5:
+    3n^2; 0(n^2)
+
+Exercicio Resolvido 6:
+    piso (log(n)) + 1; 0(log(n));
+
+Exercicio Resolvido 7:
+    Melhor = t(n) = 1
+    Pior = t(n) = n
+    Ele é ótimo
+
+Exercicio Resolvido 8:
+    Primeira opção, pois é 0(n).
+    A segunda é 0(n x log(n)) + 0(log(n)).
+
+Exercicio Resolvido 9:
+    a) Falso
+    b) Verdadeiro
+    c) Verdadeiro
+    d) Verdadeiro
+    e) Verdadeiro
+    f) Falso
+    g) Falso
+    h) Verdadeiro
+    i) Falso
+
+Exercicio Resolvido 10:
+    0(n^3), pois e n^2 . n;
+
+Exercicio Resolvido 11:
+    a) 0 (n^8)
+    b) 0 (n^8)
+    c) 0 (n^3.log(n))
+    d) 0 (n^8)
+    e) 0 (n^4.log^3(n))
+    f) 0 (n^2)
+
+Exercicio Resolvido 12:
+    a) c = 5 m = 6
+    b) c = 5 m = 6
+    c) não existe nenhum numero.`
+
+Exercicio Resolvido 13: 
+    Melhor: 1 + (n - 2)
+    Pior: 1 + 2(n -2)
+    0(n)
+
+Exercicio Resolvido 14: `
+    Melhor: 2 
+    Pior: 2 + (n-2)
+    0(1)
+    0(n)
+
+Exercicio Resolvido 15:
+    Melhor = n + 1
+    Pior = n + 2
+    0(n)
+
+Exercicio Resolvido 16:
+    2n^2 + n
+    0(n^2)
+
+Exercicio Resolvido 17:
+    n(piso log(n) + 1)
+    0(n . log(n))
+
+Exercicio Resolvido 18:
+    Linear
+    Constante
+    Linear
+    Polinomial
+    Exponencial
+    Polinomial
+    Constante
+    Exponencial
+
+Exercicio Resolvido 19:
+    1
+    n 
+    n^2
+    n^3
+    (3/2)^n
+    2^n
+
+Exercicio Resolvido 20:
+    64
+    log8(n)
+    log(n)
+    4n
+    n . log6(n)
+    n . log(n)
+    8(n^2)
+    6n^3
+    8^2n
+
+Exercicio Resolvido 21:
+    n + 30 e 3n -1
+    n^2 + 2n - 10 e n^2 + 3n
+    n^3 x 3n e n^4
+    lg(n) e lg(2n)
+
+Exercicio 1:
+
+public static void main(String[] args){
+    int menor = array[0];
+    int maior = array[0];
+    for(int i = 1; i < n; i++){
+        if(array[i] < array[menor]){
+            menor = i;
+        }else if(array[i] > array[maior]){
+            maior = i;
+        }
+    }
+    MyIO.println(array[maior] + array[menor])
+}
+
+f(n) = n - 1;
+f(n) = 2(n - 1);
+
+Exercicio 3:
+    0(log(n))
+    0(n . log(n))
+    0(n)
+    0(n^5)
+    0(n^3)
+    0(n^5)
+
+Exercicio 4:
+    F V V V V V V V 
+    F F F V V V V V
+    F F V V V V V V 
+    F F F F F F V V 
+    F F F F F V V V 
+    F F F F F F V V 
+
+Exercicio 5:
+    V V F F F F F F 
+    V V V V F F F F 
+    V V V F F F F F 
+    V V V V V V V F 
+    V V V V V V V F 
+
+Exercicio 6:
+    a) c = 2 e m = 1
+    b) c = 2 e m = 1
+    c) nao existe nenhum valor 
+
+Exercicio 7:
+        a) c2 = 4, c1 = 3, m = 5,2
+        b) Não existe valores para c2 e m que garante que a expressão: n >= m, c2 * n >= 3n^2 + 5n + 1. Ao aumentar o valor de c2, você só está retardando o momento que a curva quadrática supera a função linear.
+        c) Não existe valores para c1 e m que garante que a expressão: n >= m, c1 * n^3 <= 3n^2 + 5n + 1. Ao aumentar o valor de c1, você só está retardando o momento que a curva cubica supere a quadratica.
+    
+    Exercicio 8:
+        a) Melhor caso: f(n) = 1, 𝚯(1); Pior caso: f(n) = n - 1 𝚯(n)
+        b) Melhor caso: f(n) = n, 𝚯(n); Pior caso> f(n) = 2n - 2, 𝚯(n)
+    
+    Exercicio 9:
+        // Operação 1: Soma das variaveis a, b, c
+        for (int i = 0; i < n; i++) {
+            if(array[i] > 0) {
+                a++;
+            }
+            else {
+                b++;
+                c++;
+            }
+        }
+
+        //Operação 2: Comparação entre valores do array
+        for(int i = 0; i < n; i++) {    
+            if(array[i] > array[n - 1]) {
+                return true;
+            }
+            else if(array[i] < array[n - 1]) {
+                return false;
+            }
+            else {
+                if(array[i] + array[n - 1] > 50) {
+                    return true
+                }
+                else {
+                    return false;
+                }
+            }
+
+        }
+
+        
+        Operação 1: Melhor caso: f(n) = n, 𝚯(n); Pior caso: f(n) = 2n, 𝚯(n);
+        Operação 2: Melhor caso: f(n) = n, 𝚯(n); Pior caso: f(n) = 3n, 𝚯(n);
+    
+    Exercicio 10:
+        Pesquisas sequenciais: n * 𝚯(n) = 𝚯(n^2);
+        Pesquisa binaria: 𝚯(n * log n) + n * 𝚯(log n) = 𝚯(n * log n);
+        Logo, nesse caso a pesquisa binaria será mais eficiente. 

@@ -1,0 +1,106 @@
+Exercicio resolvido 1:
+    int somatorio(int n){
+        int soma = 0;
+        for(int i = 1; i <= n; i++){
+            soma += i;
+        }
+    return soma;
+    }
+
+Exercicio resolvido 2:
+    c(i) = (n - (i+1))
+
+Exercicio resolvido 3:
+    a) 55
+    b) 45
+    c) -15
+    d) 30 + 5x
+    e) 30
+    f) 15-10i
+
+Exercicio resolvido 4:
+    Sim, pois a0 a1 e a5 = 0
+
+Exercicio resolvido 5:
+    a) Verdadeiro Pois o primeiro termo = 0 nao interfere na soma do resto
+    b) Falso, teria que ser 3*somatorio
+    c) Verdadeiro
+    d) Falso
+    e) Verdadeiro
+
+Exercicio resolvido 6:
+    E (Ai + Bi);
+
+Exercicio resolvido 7:
+    Primeiro somatório: (3 + 2.0) + (3 + 2.1) + (3 + 2.2) + (3 + 2.3) + (3 + 2.4)
+    No segundo, temos: (3 + 2.[4-0]) + (3 + 2.[4-1]) + (3 + 2.[4-2]) + (3 + 2.[4-3]) + (3 + 2.[4-4])
+
+Exercicio resolvido 8:
+    Sn=∑[a + b.i] = (2.a + b.n).(n+1)/2
+ 
+Exercicio resolvido 8:
+    n(n+1)/2
+
+Exercicio resolvido 9:
+    int somatorio(int n){
+        return n*(n+1)/2
+    }
+
+Exercicio resolvido 10:
+    (n*n)/2 - n/2 = 0(n*n)
+
+Exercicio resolvido 11:
+    a)É igual pois o 0 nao interfere no somatorio
+
+    b)Verdadeiro pois nao e necessariamente 0
+
+    c)Verdadeiro os dois somatorios sao iguais, pois somam os mesmos termos
+
+Exercicio resolvido 12:
+   (1,n) ∑Ai + Am
+
+Exercicio resolvido 13:
+    (1,n) a(m-2)+(m-1) - ∑Ai 
+
+Exercicio resolvido 14:
+    ∑a.x^i = a - a.x^(n++1)/1-x para x!=1 
+    (n+1)a para x = 1
+
+Exercicio resolvido 15: 
+    (n-1).2n+1 + 2
+
+Exercicio resolvido 16: 
+    0^2 = 0
+    Sn= (2n^3 + 3n^2 + n)6
+    Verdadeiro
+
+Exercicio resolvido 17: 
+    Sn = (n^2 + 7n + 6)/2
+    n=0; 3; Verdadeiro
+    (n^2 + 7n + 6)/2 = (n^2 + 7n + 6)/2; Verdadeiro
+
+Exercicio resolvido 18:
+    Sn = 2n^2 + 3n
+    5; Verdadeiro
+    2n^2 + 3n = 2n^2 + 3n
+
+Exercicio resolvido 19:
+    Sn = 10n^2 + 10n
+    20; Verdadeiro
+    10n^2 + 10n = 10n^2 + 10n
+
+Exercicio resolvido 20:
+    0; Verdadeiro
+    (n-1)2^(n+1) + 2 = (n-1)2^(n+1) + 2; Verdadeiro
+
+Exercicio resolvido 21:
+    Sn = n(n+1)(2n+1)/6
+
+Exercicio 1:
+    int somatorioPA(double a, double b, int n){
+        return ((2a + bn)(n+1))/2
+    }
+
+Exercicio 2:
+    Melhor Caso: O(n) comparações, O(1) movimentações.
+    Pior Caso: O(n^2) comparações, O(n^2) movimentações.
