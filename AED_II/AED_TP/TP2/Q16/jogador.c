@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <time.h>
 
 typedef struct Jogador {
     int id;
@@ -14,14 +13,6 @@ typedef struct Jogador {
     char cidadeNascimento[250];
     char estadoNascimento[250];
 } Jogador;
-
-
-typedef struct Metricas {
-    long tempoExecucao;
-    long comparacoes;
-    long movimentacoes;
-} Metricas;
-
 
 void imprimir(Jogador* jogador) {
     printf("[%d ## %s ## %d ## %d ## %d ## %s ## %s ## %s]\n", jogador->id, jogador->nome, jogador->altura, jogador->peso, jogador->anoNascimento, jogador->universidade, jogador->cidadeNascimento, jogador->estadoNascimento);
@@ -72,24 +63,27 @@ int lerJogador(FILE* arquivo, Jogador* jogador) {
     return 8;
 }
 
-void registroDeLog(char* matricula, Metricas* metricas) {
-    char nomeArquivo[30];  // Buffer para o nome do arquivo
-    sprintf(nomeArquivo, "%s_binaria.txt", matricula);  // Formar o nome do arquivo
+void insercaoParcial(int n, Jogador arr[]) {
+    for (int i = 1; i < n; i++) {
+        Jogador tmp = arr[i];
+        int j = i - 1;
 
-    FILE *f = fopen(nomeArquivo, "w");
-    if (f == NULL) {
-        printf("Erro ao abrir arquivo de log.\n");
-        return;
+        while (j >= 0 && (arr[j].anoNascimento > tmp.anoNascimento ||
+                         (arr[j].anoNascimento == tmp.anoNascimento && strcmp(arr[j].nome, tmp.nome) > 0))) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = tmp;
     }
-    fprintf(f, "%s\t%ld\t%ld\t%ld\n", matricula, metricas->tempoExecucao, metricas->comparacoes, metricas->movimentacoes);
-    fclose(f);
 }
 
+
+
+
 int main() {
-    Metricas metricas = {0, 0, 0}; // Inicializar a estrutura de métricas com zeros
-    clock_t tempoInicial, tempoFinal; // Variáveis para calcular o tempo de execução
-    tempoInicial = clock(); // Registrar o tempo de início
     Jogador jogadores[3923];
+    int cont1 = 0;
+
     FILE* arquivo;
     arquivo = fopen("/tmp/players.csv", "r");
     if (arquivo == NULL) {
@@ -107,11 +101,12 @@ int main() {
     }
     fclose(arquivo);
 
-    // Ler os IDs da entrada padrão
-    char entrada[1000];  // ID ou "FIM"
+    
+    // Ler os IDs da entrada padrão e imprimir os jogadores correspondentes
+    char entrada[250];  // ID ou "FIM"
     int a = 0;
     int idDesejado[3923];
-    while (scanf(" %[^\n]", entrada) == 1 && strcmp(entrada, "FIM") != 0) {
+    while (scanf("%s", entrada) == 1 && strcmp(entrada, "FIM") != 0) {
         idDesejado[a] = atoi(entrada);  // Converte string para int
         a++;
     }
@@ -134,51 +129,11 @@ int main() {
         }
     }
 
-    
-    // Ordenar os jogadores por nome (ordem alfabética)
-     for (int i = 0; i < numJogadoresDesejados - 1; i++) {
-        for (int j = i + 1; j < numJogadoresDesejados; j++) {
-            metricas.comparacoes++; // Incrementar as comparações
-            if (strcmp(jogadoresDesejados[i].nome, jogadoresDesejados[j].nome) > 0) {
-                metricas.movimentacoes += 3; // Trocar três atributos (id, nome, altura)
-                // Troque os jogadores nas posições 'i' e 'j'
-                Jogador temp = jogadoresDesejados[i];
-                jogadoresDesejados[i] = jogadoresDesejados[j];
-                jogadoresDesejados[j] = temp;
-            }
-        }
+    insercaoParcial(numJogadoresDesejados, jogadoresDesejados);
+
+    for(int i = 0; i < 10 && i < numJogadoresDesejados; i++) {
+        imprimir(&jogadoresDesejados[i]);
     }
-
-
-    
-
-    while (scanf(" %[^\n]", entrada) == 1 && strcmp(entrada, "FIM") != 0){
-        bool resp = false;
-        int dir = numJogadoresDesejados - 1, esq = 0, meio;  
-        while (esq <= dir) {
-            meio = (esq + dir) / 2;
-            int comparacao = strcmp(jogadoresDesejados[meio].nome, entrada);
-            if (comparacao == 0){
-                resp = true;
-                esq = numJogadoresDesejados; // Esta linha não é necessária para encerrar o loop.
-                printf("SIM\n");
-                break; // Usar "break" é uma maneira mais clara de sair do loop
-            } else if (comparacao < 0){
-                esq = meio + 1;
-            } else {
-                dir = meio - 1;
-            }
-
-        }
-        if(!resp){
-           printf("NAO\n");
-        }
-    }
-    
-    tempoFinal = clock();
-    metricas.tempoExecucao = (tempoFinal - tempoInicial) * 1000 / CLOCKS_PER_SEC; // Converter para milissegundos
-
-    registroDeLog("729577", &metricas); // Grava as métricas no arquivo de log
-
+   
     return 0;
 }

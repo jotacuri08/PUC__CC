@@ -1,12 +1,11 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Objects;
 
-class Jogador {
+public class Jogador {
     private int id;
     private String nome;
     private int altura;
@@ -104,29 +103,6 @@ class Jogador {
         System.out.println("[" + this.id + " ## " + this.nome + " ## " + this.altura + " ## " + this.peso + " ## " + this.anoNascimento + " ## " + this.universidade + " ## " + this.cidadeNascimento + " ## " + this.estadoNascimento + "]" );
     }
     
-    public static class Metricas {
-        long tempoExecucao;
-        long comparacoes;
-        long movimentacoes;
-    
-        public void incrementaComparacoes() {
-            this.comparacoes++;
-        }
-    
-        public void incrementaMovimentacoes() {
-            this.movimentacoes++;
-        }
-    
-    }
-
-    public static void registroDeLog(String matricula, Metricas metricas) {
-    try (FileWriter fw = new FileWriter(matricula + "_sequencial.txt");
-         PrintWriter pw = new PrintWriter(fw)) {
-        pw.println(matricula + "\t" + metricas.tempoExecucao + "\t" + metricas.comparacoes + "\t" + metricas.movimentacoes);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
 
     public void ler(BufferedReader br, String linha) throws IOException {
         if (linha != null && !linha.equals("FIM")) {
@@ -151,72 +127,81 @@ class Jogador {
         }
     }
 
-    
+    private static void swap(int index1, int index2, Jogador[] jogadores) {
+            Jogador temp = jogadores[index1];
+            jogadores[index1] = jogadores[index2];
+            jogadores[index2] = temp;
+    }
     // ...
     
     public static void main(String[] args) {
-    Metricas metricas = new Metricas();
-    long tempoInicial = System.currentTimeMillis();
+        String nomeArquivo = "/tmp/players.csv"; 
+        HashMap<Integer, Jogador> jogadoresPorId = new HashMap<>();
+        int[] ID = new int[3923];
+        int a = 0;
+        Jogador[] jogadores = new Jogador[3923];
 
-    String nomeArquivo = "/tmp/players.csv"; 
-    HashMap<Integer, Jogador> jogadoresPorId = new HashMap<>();
-    int[] ID = new int[3923];
-    int i = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(nomeArquivo))) {
+            br.readLine(); // Ignora a primeira linha (cabeçalho)
 
-    try (BufferedReader br = new BufferedReader(new FileReader(nomeArquivo))) {
-        br.readLine(); // Ignora a primeira linha (cabeçalho)
-
-        String linha;
-        while ((linha = br.readLine()) != null) {
-            Jogador jogador = new Jogador();
-            jogador.ler(br, linha);
-            jogadoresPorId.put(jogador.getId(), jogador);
-        }
-
-        BufferedReader entradaPadrao = new BufferedReader(new InputStreamReader(System.in));
-
-        while (true) {
-            String entrada = entradaPadrao.readLine();
-
-            if (entrada.equalsIgnoreCase("FIM")) {
-                break;
+            // Armazena todos os jogadores no HashMap
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                Jogador jogador = new Jogador();
+                jogador.ler(br, linha);
+                jogadoresPorId.put(jogador.getId(), jogador);
             }
 
-            int idProcurado = Integer.parseInt(entrada);
-            ID[i] = idProcurado;
-            i++;
+            BufferedReader entradaPadrao = new BufferedReader(new InputStreamReader(System.in));
+
+        // Ler IDs da entrada padrão
+        while (true) {
+            try {
+                String entrada = entradaPadrao.readLine();
+
+                // Using Objects.equals() to prevent NullPointerException
+                if ("FIM".equals(entrada)) {
+                    break;
+                }
+
+                int idProcurado = Integer.parseInt(entrada);
+                ID[a] = idProcurado;
+                a++;
+
+            } catch (NumberFormatException e) {
+                // Handle exception as per your requirement
+            }
         }
 
-        while (true) {
-            metricas.incrementaComparacoes(); // Incrementa a cada comparação
-            String nomeProcurado = entradaPadrao.readLine();
+        for (int j = 0; j < a; j++) {
+            jogadores[j] = jogadoresPorId.get(ID[j]);
+        }
+        
+        } catch (IOException e) {
+            
+        }
 
-            if (nomeProcurado.equalsIgnoreCase("FIM")) {
-                break;
-            }
-
-            boolean encontrado = false;
-            for (Jogador jogador : jogadoresPorId.values()) {
-                if (jogador.getNome().equals(nomeProcurado)) {
-                    for (int j = 0; j < i; j++) {
-                        if (jogador.getId() == ID[j]) {
-                            encontrado = true;
-                            break;
-                        }
-                    }
-                    if (encontrado) break;
+    // Algoritmo de seleção parcial para encontrar os 10 menores nomes
+    for (int i = 0; i < 10; i++) {
+        int menor = i; 
+        for (int j = (i + 1); j < a; j++){  // Use 'a' here because we are only sorting the input IDs, not the entire array
+            if(jogadores[menor] != null && jogadores[j] != null){
+                if (jogadores[menor].getNome().compareTo(jogadores[j].getNome()) > 0) {
+                    menor = j;
                 }
             }
-
-            System.out.println(encontrado ? "SIM" : "NAO");
         }
+        swap(menor, i, jogadores);
+    }
 
-        long tempoFinal = System.currentTimeMillis();
-        metricas.tempoExecucao = tempoFinal - tempoInicial;
+    // Imprime somente os 10 menores nomes
+    for (int i = 0; i < 10; i++){
+        if (jogadores[i] != null) {
+            jogadores[i].imprimir();
+        }
+    }
 
-        registroDeLog("729577", metricas); // Grava as métricas no arquivo de log
-    } catch (IOException e) {
-        e.printStackTrace();
     }
 }
-}
+
+

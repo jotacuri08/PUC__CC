@@ -1,12 +1,58 @@
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Objects;
 
-class Jogador {
+class TabelaHash {
+    private Jogador[] tabela;
+    private int tamanhoTabela;
+
+    public TabelaHash(int tamanhoTabela) {
+        this.tabela = new Jogador[tamanhoTabela];
+        this.tamanhoTabela = tamanhoTabela;
+    }
+
+    private int hash(Jogador jogador, int rehashIdx) {
+        if (rehashIdx == 0) {
+            return jogador.getAltura() % tamanhoTabela;
+        } else {
+            return (jogador.getAltura() + 1) % tamanhoTabela;
+        }
+    }
+
+    public void inserir(Jogador jogador) {
+        int rehashIdx = 0;
+        int posicao = hash(jogador, rehashIdx);
+
+        while (tabela[posicao] != null && rehashIdx < tamanhoTabela) {
+            rehashIdx++;
+            posicao = hash(jogador, rehashIdx);
+        }
+
+        if (rehashIdx < tamanhoTabela) {
+            tabela[posicao] = jogador;
+        } 
+    }
+
+    public int pesquisar(String nome) {
+    int nomeHashCode = nome.hashCode();
+    for (int i = 0; i < tamanhoTabela; i++) {
+        int posicao = Math.abs(nomeHashCode + i) % tamanhoTabela;
+        if (tabela[posicao] != null && tabela[posicao].getNome().equals(nome)) {
+            return posicao; // Encontrado
+        }
+    }
+    return -1; // Não encontrado
+}
+
+}
+
+
+
+public class Jogador {
     private int id;
     private String nome;
     private int altura;
@@ -100,33 +146,10 @@ class Jogador {
         return novoJogador;
     }
 
-    public void imprimir(){
-        System.out.println("[" + this.id + " ## " + this.nome + " ## " + this.altura + " ## " + this.peso + " ## " + this.anoNascimento + " ## " + this.universidade + " ## " + this.cidadeNascimento + " ## " + this.estadoNascimento + "]" );
+    public void imprimirJogador(int index){
+        System.out.println("[" + index + "]" + " ## " + this.nome + " ## " + this.altura + " ## " + this.peso + " ## " + this.anoNascimento + " ## " + this.universidade + " ## " + this.cidadeNascimento + " ## " + this.estadoNascimento + " ##");
     }
     
-    public static class Metricas {
-        long tempoExecucao;
-        long comparacoes;
-        long movimentacoes;
-    
-        public void incrementaComparacoes() {
-            this.comparacoes++;
-        }
-    
-        public void incrementaMovimentacoes() {
-            this.movimentacoes++;
-        }
-    
-    }
-
-    public static void registroDeLog(String matricula, Metricas metricas) {
-    try (FileWriter fw = new FileWriter(matricula + "_sequencial.txt");
-         PrintWriter pw = new PrintWriter(fw)) {
-        pw.println(matricula + "\t" + metricas.tempoExecucao + "\t" + metricas.comparacoes + "\t" + metricas.movimentacoes);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
 
     public void ler(BufferedReader br, String linha) throws IOException {
         if (linha != null && !linha.equals("FIM")) {
@@ -151,72 +174,73 @@ class Jogador {
         }
     }
 
-    
+    private static void swap(int index1, int index2, Jogador[] jogadores) {
+            Jogador temp = jogadores[index1];
+            jogadores[index1] = jogadores[index2];
+            jogadores[index2] = temp;
+    }
     // ...
     
     public static void main(String[] args) {
-    Metricas metricas = new Metricas();
-    long tempoInicial = System.currentTimeMillis();
+        String nomeArquivo = "/tmp/players.csv"; 
+        HashMap<Integer, Jogador> jogadoresPorId = new HashMap<>();
+        int[] ID = new int[3923];
+        int a = 0;
+        Jogador[] jogadores = new Jogador[3923];
 
-    String nomeArquivo = "/tmp/players.csv"; 
-    HashMap<Integer, Jogador> jogadoresPorId = new HashMap<>();
-    int[] ID = new int[3923];
-    int i = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(nomeArquivo))) {
+            br.readLine(); // Ignora a primeira linha (cabeçalho)
 
-    try (BufferedReader br = new BufferedReader(new FileReader(nomeArquivo))) {
-        br.readLine(); // Ignora a primeira linha (cabeçalho)
-
-        String linha;
-        while ((linha = br.readLine()) != null) {
-            Jogador jogador = new Jogador();
-            jogador.ler(br, linha);
-            jogadoresPorId.put(jogador.getId(), jogador);
-        }
-
-        BufferedReader entradaPadrao = new BufferedReader(new InputStreamReader(System.in));
-
-        while (true) {
-            String entrada = entradaPadrao.readLine();
-
-            if (entrada.equalsIgnoreCase("FIM")) {
-                break;
+            // Armazena todos os jogadores no HashMap
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                Jogador jogador = new Jogador();
+                jogador.ler(br, linha);
+                jogadoresPorId.put(jogador.getId(), jogador);
             }
 
-            int idProcurado = Integer.parseInt(entrada);
-            ID[i] = idProcurado;
-            i++;
-        }
-
+            BufferedReader entradaPadrao = new BufferedReader(new InputStreamReader(System.in));
+            
+        // Ler IDs da entrada padrão
         while (true) {
-            metricas.incrementaComparacoes(); // Incrementa a cada comparação
-            String nomeProcurado = entradaPadrao.readLine();
+            try {
+                String entrada = entradaPadrao.readLine();
 
-            if (nomeProcurado.equalsIgnoreCase("FIM")) {
-                break;
-            }
-
-            boolean encontrado = false;
-            for (Jogador jogador : jogadoresPorId.values()) {
-                if (jogador.getNome().equals(nomeProcurado)) {
-                    for (int j = 0; j < i; j++) {
-                        if (jogador.getId() == ID[j]) {
-                            encontrado = true;
-                            break;
-                        }
-                    }
-                    if (encontrado) break;
+                if ("FIM".equals(entrada)) {
+                    break;
                 }
-            }
 
-            System.out.println(encontrado ? "SIM" : "NAO");
+                int idProcurado = Integer.parseInt(entrada);
+                ID[a] = idProcurado;
+                a++;
+
+            } catch (NumberFormatException e) {
+                
+            }
         }
 
-        long tempoFinal = System.currentTimeMillis();
-        metricas.tempoExecucao = tempoFinal - tempoInicial;
+        TabelaHash tabelaHash = new TabelaHash(21);
 
-        registroDeLog("729577", metricas); // Grava as métricas no arquivo de log
-    } catch (IOException e) {
-        e.printStackTrace();
+    // Inserir jogadores na tabela hash
+    for (Jogador jogador : jogadoresPorId.values()) {
+        tabelaHash.inserir(jogador);
     }
-}
+
+    while(true){    
+        String entrada = entradaPadrao.readLine();
+        if ("FIM".equals(entrada)) {
+                break;
+        }
+        int posicao = tabelaHash.pesquisar(entrada);
+        if (posicao == -1) {
+            System.out.println(entrada + " NAO");
+        } else {
+            System.out.println(entrada + " SIM");
+        }
+    }
+    
+        } catch (IOException e) {
+            
+        }
+    }
 }

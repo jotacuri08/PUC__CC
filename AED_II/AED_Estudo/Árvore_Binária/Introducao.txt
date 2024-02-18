@@ -1,0 +1,59 @@
+Custo de inserção, remoção e pesquisa nas lista = 0(n) comparações
+
+Custo de pesquisa na lista sequencial ordenada 0(lg(n)) comparações
+
+Um nó com filhos é chamado de nó interno e o outro sem, de folha
+
+Árvore binária completa:
+
+    Cada nó é uma folha ou possui exatamente dois filhos
+
+    Todos os nós folhas possuem altura h
+
+    O número de nós internos é 2^h - 1
+
+    O numero de nós folhas é 2^h
+
+    O número total de nós é 2(h+1) - 1
+
+
+
+Pesquisa
+
+Se a raiz estiver vazia retorna uma pesquisa negativa
+
+Se o elemento for igual ao da raiz retorna uma pesquisa positiva
+
+Se o elemento for menor que o da raiz, chamar o método pesquisa para a subárvore da esquerad
+
+Se for maior chamar o método para a subárvore da direita
+
+
+
+Caminhar
+
+Caminhar central: printa os numeros em ordem crescente
+
+Caminhar pre: printa os numeros nos niveis mais baixo
+
+Caminhar pos: printa na diagonal pra baixo
+
+
+
+Remover
+
+Se o elemento estiver em uma folha, removê-la
+
+Se o elemento estiver em um nó intermediário com um único filho, remover o nó e fazer com que seu pai aponte para seu filho
+
+Senão, se o elemento estiver em um nó intermediário com dois filhos, o elemento a ser removido deve ser substituído ou pelo maior nó da subárvore à esquerda ou menor nó da subárvore à direita
+
+
+Arvore AVL:
+
+Fator de Balanceamento:
+    fator(i) = numero de subárvores a direita - esquerda
+
+Uma árvore AVL todos os nós tem o fator -1, 0 ou 1
+Se o fator de um nó se tornar +-2 o algoritmo rotaciona esse nó
+
