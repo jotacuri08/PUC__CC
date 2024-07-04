@@ -1,4 +1,9 @@
 # PUC__CC
 
-Este é meu repositório onde contém as disciplinas que cursei em cada período.
+**Este repositório contém as disciplinas dos seguintes períodos**
+  .1°Período
+  
+  .2°Período
+  
+  .3°Período
 
