@@ -2,9 +2,9 @@
 
 **Este repositório contém as disciplinas dos seguintes períodos:**
 
-  .1°Período
+    .1°Período
   
-  .2°Período
+    .2°Período
   
-  .3°Período
+    .3°Período
 
