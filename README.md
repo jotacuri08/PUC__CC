@@ -1,6 +1,6 @@
 # PUC__CC
 
-**Este repositório contém as disciplinas dos seguintes períodos**
+**Este repositório contém as disciplinas dos seguintes períodos:**
 
   .1°Período
   
