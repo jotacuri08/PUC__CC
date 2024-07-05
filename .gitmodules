@@ -6,3 +6,6 @@
 [submodule "3_Periodo/TI-3"]
     path = 3_Periodo/TI-3
     url = https://github.com/joaomadeira1208/TI-3.git
+[submodule "2_Periodo/TI-II"]
+	path = 2_Periodo/TI-II
+	url = https://github.com/guilhermedebrites/TI-II.git
