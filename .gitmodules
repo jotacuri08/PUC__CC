@@ -1,3 +1,11 @@
 [submodule "1_Periodo/TI_I/ti-1-pmg-cc-m-20231-tiaw-financas-finmanage"]
     path = 1_Periodo/TI_I/ti-1-pmg-cc-m-20231-tiaw-financas-finmanage
     url = https://github.com/joaomadeira1208/ti-1-pmg-cc-m-20231-tiaw-financas-finmanage.git
+
+[submodule "2_Periodo/TI-II"]
+    path = 2_Periodo/TI-II
+    url = https://github.com/guilhermedebrites/TI-II.git
+
+[submodule "3_Periodo/TI-3"]
+    path = 3_Periodo/TI-3
+    url = https://github.com/joaomadeira1208/TI-3.git
